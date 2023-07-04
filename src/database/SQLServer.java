@@ -5,8 +5,10 @@ import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import Servisofts.SConfig;
@@ -58,14 +60,25 @@ public class SQLServer {
         }
     }
 
-    public static void executeString(String query) throws ClassNotFoundException, SQLException {
+    public static JSONArray executeString(String query) throws ClassNotFoundException, SQLException {
         PreparedStatement ps = getConexion().prepareStatement(query);
         ResultSet rs = ps.executeQuery();
-        String resp = "";
+
+        ResultSetMetaData rsmd = rs.getMetaData();
+        int columnCount = rsmd.getColumnCount();
+
+        JSONArray arr = new JSONArray();
         while (rs.next()) {
-            System.out.println(rs.toString());
+            JSONObject obj = new JSONObject();
+            for (int i = 0; i < columnCount; i++) {
+                String colName = rsmd.getColumnName(i+1);
+                Object o = rs.getObject(colName);
+                obj.put(colName, o);
+            }
+            arr.put(obj);
         }
         rs.close();
         ps.close();
+        return arr;
     }
 }
