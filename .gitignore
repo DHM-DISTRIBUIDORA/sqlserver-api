@@ -1,0 +1,5 @@
+/config.json
+/docker/sql-server-data
+/docker/sqldata
+/docker/sqllog
+/docker/sqlbackup
