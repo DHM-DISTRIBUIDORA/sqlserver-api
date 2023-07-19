@@ -1,0 +1,10 @@
+services: 
+  servicio:
+    image: openjdk:11-jdk-oraclelinux8
+    restart: always
+    ports: 
+      - 8080:8080
+    volumes:
+      - ./:/u01/
+    working_dir: /u01/
+    command: java -jar sqlserver-api.jar

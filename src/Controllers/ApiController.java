@@ -2,6 +2,7 @@ package Controllers;
 
 import java.sql.SQLException;
 
+import org.eclipse.jetty.http.HttpStatus.Code;
 import org.json.JSONArray;
 
 import Servisofts.http.Exception.*;
@@ -16,13 +17,8 @@ public class ApiController {
   @GetMapping("/")
   public String root(@RequestHeader(value = "Authorization", required = true) String apiToken) throws HttpException {
     ApiKeys.validateRequest(apiToken);
-    System.out.println(apiToken);
-    try {
-      JSONArray arr = SQLServer.executeString("select * from dbo.usuarios");
-      return arr.toString();
-    } catch (ClassNotFoundException | SQLException e) {
-      throw new HttpException(404, e.getMessage());
-    }
+    // System.out.println(apiToken);
+    return "[POST]/select";
   }
 
   @PostMapping("/select")
@@ -33,7 +29,10 @@ public class ApiController {
       JSONArray arr = SQLServer.executeString(body);
       return arr.toString();
     } catch (ClassNotFoundException | SQLException e) {
+      e.printStackTrace();
       throw new HttpException(404, e.getMessage());
     }
   }
+
+
 }

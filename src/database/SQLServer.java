@@ -62,7 +62,15 @@ public class SQLServer {
 
     public static JSONArray executeString(String query) throws ClassNotFoundException, SQLException {
         PreparedStatement ps = getConexion().prepareStatement(query);
-        ResultSet rs = ps.executeQuery();
+        ResultSet rs;
+        try {
+            rs = ps.executeQuery();
+        } catch (SQLException e) {
+            if (e.getMessage().equals("The statement did not return a result set.")) {
+                return new JSONArray().put(new JSONObject().put("response", "No result set"));
+            }
+            throw e;
+        }
 
         ResultSetMetaData rsmd = rs.getMetaData();
         int columnCount = rsmd.getColumnCount();
@@ -71,7 +79,7 @@ public class SQLServer {
         while (rs.next()) {
             JSONObject obj = new JSONObject();
             for (int i = 0; i < columnCount; i++) {
-                String colName = rsmd.getColumnName(i+1);
+                String colName = rsmd.getColumnName(i + 1);
                 Object o = rs.getObject(colName);
                 obj.put(colName, o);
             }
@@ -81,4 +89,5 @@ public class SQLServer {
         ps.close();
         return arr;
     }
+
 }

@@ -3,3 +3,4 @@
 /docker/sqldata
 /docker/sqllog
 /docker/sqlbackup
+/build/*/
