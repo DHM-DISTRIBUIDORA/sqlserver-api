@@ -1,4 +1,5 @@
 /config.json
+/docker/sqlServer
 /docker/sql-server-data
 /docker/sqldata
 /docker/sqllog
