@@ -35,8 +35,10 @@ public class SQLServer {
         return SQLServer.getInstance().con;
     }
 
-    public boolean isConnect() {
-        return false;
+    public boolean isConnect() throws SQLException {
+        if (this.con == null)
+            return false;
+        return !this.con.isClosed();
     }
 
     public void connect() throws SQLException, ClassNotFoundException {
