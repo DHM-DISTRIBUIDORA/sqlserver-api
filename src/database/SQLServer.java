@@ -61,6 +61,9 @@ public class SQLServer {
     }
 
     public static JSONArray executeString(String query) throws ClassNotFoundException, SQLException {
+
+        if (query.length() <= 0)
+            throw new SQLException("query is null");
         PreparedStatement ps = getConexion().prepareStatement(query);
         ResultSet rs;
         try {

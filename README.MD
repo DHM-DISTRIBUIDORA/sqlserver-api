@@ -1,3 +1,6 @@
+ESTO SE EJECUTA DESDE LA BASE DE DATOS 
+
+
 RESTORE DATABASE DHM_2023
 FROM DISK = '/var/opt/sqlserver/backup/mifile.bac'
 WITH REPLACE,

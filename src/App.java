@@ -9,7 +9,7 @@ public class App {
 
     public static void main(String[] args) {
         try {
-            // Servisofts.DEBUG = false;
+            Servisofts.DEBUG = false;
             SConsole.succes(SConfig.getJSON().getString("nombre"));
             SQLServer.getConexion();
             Rest.addController(RootController.class);

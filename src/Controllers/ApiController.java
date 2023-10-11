@@ -26,6 +26,9 @@ public class ApiController {
       @RequestBody String body) throws HttpException {
     ApiKeys.validateRequest(apiToken);
     try {
+      if (body.length() <= 0) {
+        throw new HttpException(404, "Error la consulta esta vacia.");
+      }
       JSONArray arr = SQLServer.executeString(body);
       return arr.toString();
     } catch (ClassNotFoundException | SQLException e) {
@@ -33,6 +36,5 @@ public class ApiController {
       throw new HttpException(404, e.getMessage());
     }
   }
-
 
 }
