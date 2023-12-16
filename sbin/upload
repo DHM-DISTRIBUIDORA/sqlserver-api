@@ -1,0 +1,3 @@
+ #!/bin/bash
+#  scp sqlserver-api.jar 2.2:/home/servisofts/servicios/dhm/sqlserver-api/sqlserver-api.jar
+ scp sqlserver-api.jar 2.2:/home/servisofts/repo/resources/sqlserver-api.jar
